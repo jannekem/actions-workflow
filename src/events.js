@@ -129,4 +129,6 @@ const activityTypes = {
   workflow_run: ["completed", "requested"],
 };
 
-export { events, activityTypes };
+const branchEvents = ["push", "pull_request"];
+
+export { events, activityTypes, branchEvents };
