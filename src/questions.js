@@ -141,7 +141,7 @@ for (const [event, types] of Object.entries(activityTypes)) {
       return answers.events.includes(event);
     },
     filter(answer) {
-      if (!answer) {
+      if (answer.length == 0) {
         return undefined;
       }
       return answer;
