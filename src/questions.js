@@ -19,6 +19,12 @@ questions.push({
   type: "input",
   name: "name",
   message: "What's the name of your workflow?",
+  validate(answer){
+      if (!answer) {
+          return "You must give your workflow a name!"
+      }
+      return true
+  }
 });
 
 questions.push({
