@@ -177,13 +177,20 @@ function getJobQuestions(initialAnswers) {
         }
         return true;
       },
+      filter(answer) {
+          return {
+              matrix: answer.length > 1,
+              os: answer
+          }
+      }
     });
     jobQuestions.push({
       type: "input",
-      name: `jobs.${job}.runs-on`,
+      name: `jobs.${job}.runs-on.os`,
       message: "Specify labels for the self-hosted runner (optional)",
       when(answers) {
-        return answers.jobs[job]["runs-on"].includes("self-hosted");
+        const runs_on = answers.jobs[job]["runs-on"];
+        return !runs_on.matrix && runs_on.os.includes("self-hosted");
       },
       filter(answer) {
         return ["self-hosted", ...answer.split(/[ ,]+/).filter(Boolean)];
