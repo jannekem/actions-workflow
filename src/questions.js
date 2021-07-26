@@ -5,9 +5,11 @@ import {
   languageEnvironments,
 } from "./language-environments.js";
 import { runnerEnvironments } from "./runner-environments.js";
+import { checkIfWorkflowExists } from "./writer.js";
 
 const questions = [];
 
+// filename
 questions.push({
   type: "input",
   name: "filename",
@@ -16,17 +18,35 @@ questions.push({
 });
 
 questions.push({
+  type: "list",
+  name: "overwrite",
+  message: "File already exists! Overwrite?",
+  choices: ["no", "yes"],
+  when(answers) {
+    return checkIfWorkflowExists(answers.filename);
+  },
+  filter(answer) {
+    if (answer === "no") {
+      process.exit(0);
+    }
+    return answer;
+  },
+});
+
+// workflow name
+questions.push({
   type: "input",
   name: "name",
   message: "What's the name of your workflow?",
-  validate(answer){
-      if (!answer) {
-          return "You must give your workflow a name!"
-      }
-      return true
-  }
+  validate(answer) {
+    if (!answer) {
+      return "You must give your workflow a name!";
+    }
+    return true;
+  },
 });
 
+// events
 questions.push({
   type: "checkbox",
   name: "events",
@@ -83,9 +103,9 @@ for (const event of branchEvents) {
       return answer.split(/[ ,]+/).filter(Boolean);
     },
     transformer(answer) {
-        if (!answer) {
-          return "";
-        }
+      if (!answer) {
+        return "";
+      }
       return answer;
     },
   });
@@ -103,9 +123,9 @@ for (const event of branchEvents) {
       return answer.split(/[ ,]+/).filter(Boolean);
     },
     transformer(answer) {
-        if (!answer) {
-          return "";
-        }
+      if (!answer) {
+        return "";
+      }
       return answer;
     },
   });
@@ -123,9 +143,9 @@ for (const event of branchEvents) {
       return answer.split(/[ ,]+/).filter(Boolean);
     },
     transformer(answer) {
-        if (!answer) {
-          return "";
-        }
+      if (!answer) {
+        return "";
+      }
       return answer;
     },
   });
@@ -149,6 +169,7 @@ for (const [event, types] of Object.entries(activityTypes)) {
   });
 }
 
+// jobs
 questions.push({
   type: "input",
   name: "jobIds",

@@ -1,13 +1,16 @@
 import inquirer from "inquirer";
 import { questions, getJobQuestions } from "./questions.js";
 import { buildYaml } from "./workflow.js";
+import { checkGitDirectory, writeWorkflow } from "./writer.js";
 
+checkGitDirectory()
 
 inquirer
   .prompt(questions)
   .then((baseAnswers) => {
     inquirer.prompt(getJobQuestions(baseAnswers)).then((jobAnswers) => {
-      buildYaml(baseAnswers, jobAnswers);
+      const workflow = buildYaml(baseAnswers, jobAnswers);
+      writeWorkflow(baseAnswers.filename, workflow);
     });
   })
   .catch((error) => {
