@@ -56,6 +56,12 @@ for (const event of branchEvents) {
       }
       return answer.split(/[ ,]+/).filter(Boolean);
     },
+    transformer(answer) {
+      if (!answer) {
+        return "";
+      }
+      return answer;
+    },
   });
   questions.push({
     type: "input",
@@ -70,11 +76,17 @@ for (const event of branchEvents) {
       }
       return answer.split(/[ ,]+/).filter(Boolean);
     },
+    transformer(answer) {
+        if (!answer) {
+          return "";
+        }
+      return answer;
+    },
   });
   questions.push({
     type: "input",
     name: `on.${event}.tags`,
-    message: `List tags for ${event} (optional):`,
+    message: `List tags for ${event} (optional)`,
     when(answers) {
       return answers.events.includes(event);
     },
@@ -83,12 +95,18 @@ for (const event of branchEvents) {
         return undefined;
       }
       return answer.split(/[ ,]+/).filter(Boolean);
+    },
+    transformer(answer) {
+        if (!answer) {
+          return "";
+        }
+      return answer;
     },
   });
   questions.push({
     type: "input",
     name: `on.${event}.tags-ignore`,
-    message: `Ignore tags for ${event} (optional):`,
+    message: `Ignore tags for ${event} (optional)`,
     when(answers) {
       return answers.events.includes(event);
     },
@@ -97,6 +115,12 @@ for (const event of branchEvents) {
         return undefined;
       }
       return answer.split(/[ ,]+/).filter(Boolean);
+    },
+    transformer(answer) {
+        if (!answer) {
+          return "";
+        }
+      return answer;
     },
   });
 }
@@ -178,11 +202,11 @@ function getJobQuestions(initialAnswers) {
         return true;
       },
       filter(answer) {
-          return {
-              matrix: answer.length > 1,
-              os: answer
-          }
-      }
+        return {
+          matrix: answer.length > 1,
+          os: answer,
+        };
+      },
     });
     jobQuestions.push({
       type: "input",
