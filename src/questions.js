@@ -253,7 +253,7 @@ function getJobQuestions(initialAnswers) {
         for (const option of languageConf.with) {
           const question = {
             type: option.type,
-            name: `job-options.${job}.${language}.with.${option.name}`,
+            name: `job-options.${job}.languages.${languageConf.uses}.with.${option.name}`,
             message: option.message,
             choices: option.choices,
             validate(answer) {
