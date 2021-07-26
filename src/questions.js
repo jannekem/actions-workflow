@@ -196,7 +196,7 @@ function getJobQuestions(initialAnswers) {
       message: `Choose runner environment(s) for '${job}'`,
       choices: runnerEnvironments,
       validate(answer) {
-        if (answer.length < 1) {
+        if (answer.os.length < 1) {
           return "Choose at least one environment!";
         }
         return true;
