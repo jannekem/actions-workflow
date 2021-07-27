@@ -1,3 +1,4 @@
+import chalk from "chalk";
 import fs from "fs";
 
 function checkGitDirectory() {
@@ -11,7 +12,9 @@ function checkGitDirectory() {
 
 function writeWorkflow(filename, content) {
   fs.mkdirSync(".github/workflows", { recursive: true});
-  fs.writeFileSync(`.github/workflows/${filename}`, content);
+  const fullName = `.github/workflows/${filename}`
+  fs.writeFileSync(fullName, content);
+  console.log(`${chalk.blue("!")} Workflow file saved as: ${fullName}`)
 }
 
 function checkIfWorkflowExists(filename) {

@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import inquirer from "inquirer";
 import { questions, getJobQuestions } from "./questions.js";
 import { buildYaml } from "./workflow.js";
