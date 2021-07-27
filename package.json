@@ -6,6 +6,9 @@
   "scripts": {
     "test": "test"
   },
+  "bin": {
+    "actions-workflow": "src/index.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jannekem/actions-workflow.git"
