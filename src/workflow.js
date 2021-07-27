@@ -57,8 +57,10 @@ function buildYaml(baseAnswers, jobAnswers) {
 
   // transform to JSON in order to lose 'undefined' entries
   const cleanObject = JSON.parse(JSON.stringify(workflow, null, "  "));
-  const result = YAML.stringify(cleanObject).replaceAll(" {}", "")
-  console.log(result)
+  const result = YAML.stringify(cleanObject)
+    .replaceAll(" {}", "")
+    .replaceAll(" []", "");
+  console.log(result);
   return result;
 }
 
