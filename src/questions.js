@@ -15,6 +15,13 @@ questions.push({
   name: "filename",
   message: "What filename would you like to use?",
   default: "main.yml",
+  validate(answer) {
+    const pass = answer.match(/^[\w]+\.(yaml|yml)$/);
+    if (pass){
+        return true
+    }
+    return "Enter a valid filename with .yaml or .yml extension!"
+  }
 });
 
 questions.push({
